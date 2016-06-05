@@ -5,4 +5,4 @@ INSERT INTO ARTISTA (ID_ARTISTA, NOME, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES 
 INSERT INTO ARTISTA (ID_ARTISTA, NOME, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (3, 'Luan Santana','M', '1991-03-13', NULL);
 INSERT INTO ARTISTA (ID_ARTISTA, NOME, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (4, 'Gilberto Gil','M', '1942-06-26', NULL);
 INSERT INTO ARTISTA (ID_ARTISTA, NOME, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (5, 'Ivete Zangalo','F', '1972-03-27', 'Ivete Maria Dias de Sangalo Cady é uma cantora, compositora, instrumentista, atriz, apresentadora, dubladora, produtora, empresária e escritora brasileira');
-
+INSERT INTO ARTISTA (ID_ARTISTA, NOME, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (6, 'Fábio Junior','M', '1953-11-21', 'Fábio Júnior, nome artístico de Fábio Corrêa Ayrosa Galvão, é um cantor, compositor e ator brasileiro. Atuou em diversas telenovelas, quase todas da Rede Globo');
