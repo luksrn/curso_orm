@@ -12,17 +12,17 @@ public class HibernateBootstrapTest {
 	
 	@BeforeClass
 	public static void inicializacao(){
-		sessionFactory = HibernateBootstrap.getSessionFactory();
+		sessionFactory = SessionFactoryHolder.getSessionFactory();
 	}
 
 	@Test
 	public void testInicializacaoSucesso(){
-		Assert.assertTrue( sessionFactory != null );		
+		Assert.assertTrue( sessionFactory.isOpen() );		
+		
 	}
 	
 	@AfterClass
 	public static void finalizar(){
 		sessionFactory.close();
 	}
-
 }

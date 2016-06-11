@@ -1,5 +1,7 @@
 package br.edu.unirn.orm;
 
+import java.io.File;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -9,7 +11,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
 
-public class HibernateBootstrap {
+import br.edu.unirn.orm.dominio.Artista;
+
+public class SessionFactoryHolder {
 	
 	private static SessionFactory sessionFactory;
 	
@@ -17,16 +21,6 @@ public class HibernateBootstrap {
 		inicializarSessionFactory();
 	}
 
-
-	/**
-	 * A inicialização Nativa do Hibernate 5 ocorre em duas fases:
-	 * 
-	 *  1 - A criação do ServiceRegistry
-	 * 
-	 *  2 - A criação do MetaData
-	 *  
-	 *  Com o MetaData é possível construir a SessionFactory.
-	 */
 	private static void inicializarSessionFactory(){
 		
 		ServiceRegistry serviceRegistry = construirServiceRegistry();
@@ -37,10 +31,11 @@ public class HibernateBootstrap {
 	}
 
 	/**
-	 * 
-	 *  Para{@link BootstrapServiceRegistry} pode ser construido utilizando o Builder {@link BootstrapServiceRegistryBuilder}.
+	 *  Para construir o {@link ServiceRegistry}, podemos utilizar:
 	 *  
-	 *  {@link StandardServiceRegistry} pode ser construido utilizando o {@link StandardServiceRegistryBuilder}
+	 *  Para {@link BootstrapServiceRegistry} o builder {@link BootstrapServiceRegistryBuilder}.
+	 *  
+	 *  e para {@link StandardServiceRegistry} builder o {@link StandardServiceRegistryBuilder}
 	 *  
 	 * @return
 	 */
@@ -48,23 +43,17 @@ public class HibernateBootstrap {
 		
 		ServiceRegistry standarServiceRegistry = 
 				new StandardServiceRegistryBuilder()
-					.configure() // Busca no root Classpath
+					.configure()
 					.build();
 		
 		return standarServiceRegistry;
 	}
 	
-	/**
-	 * A classe {@link Metadata} contém informações do modelo de dominio e seu mapeamento
-	 * para o banco de dados! A primeira coisa que precisamos para construir o {@link Metadata}
-	 * são as informações de mapeamento (Classes anotadas, hbm.xml, orm.xml).
-	 * 
-	 * Para este proposito, utilizamos a classe {@link MetadataSources}
-	 * 
-	 * @return
-	 */
 	private static Metadata construirMetaData(ServiceRegistry sr){
 		MetadataSources sources = new MetadataSources(sr);
+		
+		sources.addAnnotatedClass( Artista.class );
+		
 		return sources.buildMetadata();
 	}
 

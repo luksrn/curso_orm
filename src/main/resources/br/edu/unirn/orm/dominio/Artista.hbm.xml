@@ -11,13 +11,13 @@
             <generator class="increment" />
         </id>
         
-        <property name="nome" column="NOME" not-null="true"/>
+        <property name="nome" column="nome_artista" not-null="true"/>
         
         <property name="sexo" column="SEXO" length="1" not-null="true"/>
         
-        <property name="dataNascimento" column="DATA_NASCIMENTO" type="date" not-null="true" />
+        <property name="dataNascimento" column="DATA_NASCIMENTO"
+        			 type="date" not-null="true" />
         
         <property name="biografia" column="BIOGRAFIA" length="65535" />
     </class>
-
 </hibernate-mapping>
