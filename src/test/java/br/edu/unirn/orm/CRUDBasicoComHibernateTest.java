@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.Artista;
+import br.edu.unirn.utils.AbstractTest;
+import br.edu.unirn.utils.DataHelper;
 
 /**
  * Básico da CRUD
@@ -16,7 +18,7 @@ import br.edu.unirn.orm.dominio.Artista;
  * @author Lucas Farias
  *
  */
-public class CRUDBasicoComHibernateTest extends AbstractTest {
+public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelper{
 	
 	@Test
 	public void cadastroArtistaTest()  {
@@ -29,7 +31,7 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 			safadao.setSexo("M");
 			safadao.setBiografia("Wesley Oliveira da Silva, mais conhecido como Wesley Safadão, é um cantor, produtor e empresário brasileiro de forró eletrônico");
 			
-			session.save(safadao);
+			session.persist(safadao);
 			Assert.assertTrue( safadao.getId() != null );
 			
 			return safadao;
@@ -41,10 +43,10 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 	public void leituraRegistroDoBancoDeDados(){
 	
 		doWithSession( session -> {
-			Artista artista = session.get(Artista.class, 10000L);
+			Artista artista = session.get(Artista.class, 1L);
 			// Hibernate: select artista0_.ID_ARTISTA as ID_ARTIS1_0_0_, artista0_.NOME as NOME2_0_0_, artista0_.SEXO as SEXO3_0_0_, artista0_.DATA_NASCIMENTO as DATA_NAS4_0_0_, artista0_.BIOGRAFIA as BIOGRAFI5_0_0_ from ARTISTA artista0_ where artista0_.ID_ARTISTA=?
 			
-			assertTrue( artista.getId() == 10000L );
+			assertTrue( artista.getId() == 1L );
 			assertTrue( artista.getNome().equals("Caetano Veloso"));
 			assertTrue( artista.getBiografia().toString() != null );
 		});
@@ -55,7 +57,7 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 		
 		doInTransaction( session -> {
 
-			Artista artista = session.get(Artista.class, 50000L);
+			Artista artista = session.get(Artista.class, 5L);
 			
 			assertTrue( artista.getNome().equals("Ivete Zangalo"));	
 			
@@ -63,7 +65,7 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 			
 			session.update(artista);
 
-			Artista ivete = session.get(Artista.class, 50000L);
+			Artista ivete = session.get(Artista.class, 5L);
 			
 			assertTrue( ivete.getNome().equals("Ivete Sangalo"));	
 		});
@@ -72,8 +74,13 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 	@Test
 	public void remocaoRegistroBancoDadosTest(){
 		doInTransaction( session -> {
-			Artista artista = session.get(Artista.class, 30000L); 		 
+			Artista artista = session.get(Artista.class, 3L); 		 
 			session.delete(artista);
+		});
+		
+		doWithSession( session -> {
+			Artista artista = session.get(Artista.class, 3L); 		 
+			assertTrue( artista == null );
 		});
 	}
 	
@@ -81,27 +88,21 @@ public class CRUDBasicoComHibernateTest extends AbstractTest {
 	public void testSituacaoDeRollback(){
 		
 		doInTransaction( session -> {
-			Artista caetano = session.get(Artista.class, 10000L); 		
+			Artista caetano = session.get(Artista.class, 1L); 		
 			Assert.assertTrue( caetano.getNome().equals("Caetano Veloso"));
 			session.delete(caetano);
 		
-			Artista robertoCarlos = session.find(Artista.class, 20000L);
+			Artista robertoCarlos = session.find(Artista.class, 2L);
 			robertoCarlos.setNome(null); // Campo é not-null
 			session.save(robertoCarlos);
 		});
 		
 		doWithSession( session -> {
-			Artista caetano = session.get(Artista.class, 10000L); 	
+			Artista caetano = session.get(Artista.class, 1L); 	
 			
 			Assert.assertTrue( caetano.getNome().equals("Caetano Veloso"));
 		});
 	}
 	
-	private static Date asData(String data){
-		try{
-			return new SimpleDateFormat("dd/MM/yyyy").parse(data);
-		} catch(Exception e){
-			return null;
-		}
-	}
+	
 }

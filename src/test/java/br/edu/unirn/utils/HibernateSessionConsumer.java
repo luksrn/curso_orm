@@ -1,4 +1,4 @@
-package br.edu.unirn.orm;
+package br.edu.unirn.utils;
 
 import java.util.function.Consumer;
 

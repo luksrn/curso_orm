@@ -1,28 +1,16 @@
 package br.edu.unirn.orm;
 
-import org.hibernate.SessionFactory;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class HibernateBootstrapTest {
+import br.edu.unirn.utils.AbstractTest;
 
-	protected static SessionFactory sessionFactory;
+public class HibernateBootstrapTest extends AbstractTest {
 	
-	@BeforeClass
-	public static void inicializacao(){
-		sessionFactory = SessionFactoryHolder.getSessionFactory();
-	}
-
 	@Test
 	public void testInicializacaoSucesso(){
-		Assert.assertTrue( sessionFactory.isOpen() );		
+		Assert.assertTrue( SessionFactoryHolder.getSessionFactory().isOpen() );		
 		
 	}
 	
-	@AfterClass
-	public static void finalizar(){
-		sessionFactory.close();
-	}
 }

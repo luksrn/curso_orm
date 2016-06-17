@@ -1,12 +1,27 @@
-package br.edu.unirn.orm;
+package br.edu.unirn.utils;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.junit.After;
+import org.junit.Before;
+
+import br.edu.unirn.orm.SessionFactoryHolder;
 
 public class AbstractTest {
 
 	protected static SessionFactory sessionFactory = SessionFactoryHolder.getSessionFactory();
+	
+	@Before
+	public void inicializarSessionFactory(){
+		SessionFactoryHolder.inicializarSessionFactory();
+		sessionFactory = SessionFactoryHolder.getSessionFactory();
+	}
+	
+	@After
+	public void  finalizarSessionFactoy(){
+		sessionFactory.close();
+	}
 	
 	public <R> R doInTransaction( HibernateSessionFunction<R> funcao ){
 		Session session = null;

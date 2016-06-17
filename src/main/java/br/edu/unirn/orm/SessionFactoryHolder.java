@@ -1,7 +1,5 @@
 package br.edu.unirn.orm;
 
-import java.io.File;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -12,6 +10,13 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
 
 import br.edu.unirn.orm.dominio.Artista;
+import br.edu.unirn.orm.dominio.ArtistaAtuacao;
+import br.edu.unirn.orm.dominio.Atuacao;
+import br.edu.unirn.orm.dominio.Banda;
+import br.edu.unirn.orm.dominio.CD;
+import br.edu.unirn.orm.dominio.Genero;
+import br.edu.unirn.orm.dominio.Gravadora;
+import br.edu.unirn.orm.dominio.Musica;
 
 public class SessionFactoryHolder {
 	
@@ -21,13 +26,14 @@ public class SessionFactoryHolder {
 		inicializarSessionFactory();
 	}
 
-	private static void inicializarSessionFactory(){
+	public static void inicializarSessionFactory(){
 		
 		ServiceRegistry serviceRegistry = construirServiceRegistry();
 		
 		Metadata metadata = construirMetaData(serviceRegistry);
 		
 		sessionFactory = metadata.buildSessionFactory();
+		 
 	}
 
 	/**
@@ -52,9 +58,18 @@ public class SessionFactoryHolder {
 	private static Metadata construirMetaData(ServiceRegistry sr){
 		MetadataSources sources = new MetadataSources(sr);
 		
-		sources.addAnnotatedClass( Artista.class );
+		sources.addAnnotatedClass( Artista.class )
+			.addAnnotatedClass(Atuacao.class)
+			.addAnnotatedClass(ArtistaAtuacao.class)
+			.addAnnotatedClass(Genero.class)
+			.addAnnotatedClass(Banda.class)
+			.addAnnotatedClass(Gravadora.class)
+			.addAnnotatedClass(CD.class)
+			.addAnnotatedClass(Musica.class);
 		
-		return sources.buildMetadata();
+		 
+		Metadata metadata = sources.buildMetadata();
+		return metadata;
 	}
 
 	public static SessionFactory getSessionFactory(){
