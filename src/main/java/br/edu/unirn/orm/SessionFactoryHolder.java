@@ -17,6 +17,9 @@ import br.edu.unirn.orm.dominio.CD;
 import br.edu.unirn.orm.dominio.Genero;
 import br.edu.unirn.orm.dominio.Gravadora;
 import br.edu.unirn.orm.dominio.Musica;
+import br.edu.unirn.orm.dominio.Review;
+import br.edu.unirn.orm.dominio.ReviewBanda;
+import br.edu.unirn.orm.dominio.ReviewCD;
 
 public class SessionFactoryHolder {
 	
@@ -65,7 +68,10 @@ public class SessionFactoryHolder {
 			.addAnnotatedClass(Banda.class)
 			.addAnnotatedClass(Gravadora.class)
 			.addAnnotatedClass(CD.class)
-			.addAnnotatedClass(Musica.class);
+			.addAnnotatedClass(Musica.class)
+			.addAnnotatedClass(Review.class)
+			.addAnnotatedClass(ReviewCD.class)
+			.addAnnotatedClass(ReviewBanda.class);
 		
 		 
 		Metadata metadata = sources.buildMetadata();

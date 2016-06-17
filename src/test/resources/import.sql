@@ -166,6 +166,11 @@ insert into musica (id, numero, titulo, duracao, id_album ) values ( 46, 2, 'Los
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 47, 3, 'Lost in Space (album version)' , 5, 7);
 
 
+-- Review 
+insert into review (id, tipo_review, autor, data, descricao, pontuacao, id_album, id_grupo_musical) values (1, 1, 'lucas', '2016-06-08', 'Review de uma Banda NightWish', NULL, NULL, 1);
+
+insert into review (id, tipo_review, autor, data, descricao, pontuacao, id_album, id_grupo_musical) values (2, 2, 'rafael', '2016-02-08', 'Review de um CD  Lunatica', 86, 10, NULL);
+
 ALTER SEQUENCE atuacao_seq RESTART WITH 1000;
 ALTER SEQUENCE musica_seq RESTART WITH 1000;
 ALTER SEQUENCE artista_seq RESTART WITH 1000;
@@ -174,3 +179,6 @@ ALTER SEQUENCE grupo_musical_seq RESTART WITH 1000;
 ALTER SEQUENCE gravadora_seq RESTART WITH 1000;
 ALTER SEQUENCE musica_seq RESTART WITH 1000;
 ALTER SEQUENCE artista_atuacao_seq RESTART WITH 1000;
+
+ALTER SEQUENCE review_seq RESTART WITH 1000;
+
