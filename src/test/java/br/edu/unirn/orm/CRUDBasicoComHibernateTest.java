@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.Artista;
+import br.edu.unirn.orm.dominio.GeneroSexual;
 import br.edu.unirn.utils.AbstractTest;
 import br.edu.unirn.utils.DataHelper;
 
@@ -22,21 +23,16 @@ public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelp
 	
 	@Test
 	public void cadastroArtistaTest()  {
-		 
 		doInTransaction( session -> {
-			
 			Artista safadao = new Artista();
 			safadao.setNome("Wesley Safadão");
 			safadao.setDataNascimento( asData("06/09/1988") );
-			safadao.setSexo("M");
+			safadao.setGenero(GeneroSexual.MASCULINO);
 			safadao.setBiografia("Wesley Oliveira da Silva, mais conhecido como Wesley Safadão, é um cantor, produtor e empresário brasileiro de forró eletrônico");
 			
 			session.persist(safadao);
 			Assert.assertTrue( safadao.getId() != null );
-			
-			return safadao;
 		});
-		
 	}
 	
 	@Test
@@ -48,6 +44,7 @@ public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelp
 			
 			assertTrue( artista.getId() == 1L );
 			assertTrue( artista.getNome().equals("Caetano Veloso"));
+			assertTrue( artista.getGenero() == GeneroSexual.MASCULINO);
 			assertTrue( artista.getBiografia().toString() != null );
 		});
 	}

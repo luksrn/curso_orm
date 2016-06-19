@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.edu.unirn.orm.jpa.GeneroSexualConverter;
+
 @Entity
 public class Artista {
+	
+	@Column(name="sexo",columnDefinition="char")
+	@Convert(converter=GeneroSexualConverter.class)
+	private GeneroSexual genero;
 	
 	@Id
 	@GeneratedValue(generator="artista_seq",strategy=GenerationType.SEQUENCE)
@@ -29,8 +37,6 @@ public class Artista {
 	@Column(name="nome_artista",nullable=false)
 	private String nome;
 	
-	@Column(length=1)
-	private String sexo;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_NASCIMENTO")
@@ -73,12 +79,12 @@ public class Artista {
 		this.nome = nome;
 	}
 
-	public String getSexo() {
-		return sexo;
+	public GeneroSexual getGenero() {
+		return genero;
 	}
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public void setGenero(GeneroSexual sexo) {
+		this.genero = sexo;
 	}
 
 	public Date getDataNascimento() {

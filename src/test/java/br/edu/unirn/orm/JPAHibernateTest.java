@@ -9,9 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 
-import br.edu.unirn.utils.AbstractTest;
-
-public class JPAHibernateTest extends AbstractTest {
+public class JPAHibernateTest {
 	
 	@Test
 	public void testSeSessionFactoryEhUmaEntityManagerFactory(){

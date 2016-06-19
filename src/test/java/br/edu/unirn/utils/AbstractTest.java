@@ -3,6 +3,7 @@ package br.edu.unirn.utils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.After;
 import org.junit.Before;
 
@@ -34,7 +35,10 @@ public class AbstractTest {
 			resultado = funcao.apply(session);
 			tx.commit();
 		} catch (RuntimeException e){
-			if ( tx != null && tx.isActive() ){ tx.rollback(); }
+			if ( tx != null && (
+						tx.getStatus() == TransactionStatus.ACTIVE || 
+						tx.getStatus() == TransactionStatus.MARKED_ROLLBACK) 
+			){ tx.rollback(); }
 			throw e;
 		} finally {
 			if ( session != null && session.isOpen()){ session.close();}
