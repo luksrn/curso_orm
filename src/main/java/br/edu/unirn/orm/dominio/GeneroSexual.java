@@ -19,5 +19,5 @@ public enum GeneroSexual {
         throw new UnsupportedOperationException(
             "O código " + codigo + " não é suportado!");
     }
-    public char getCode() { return codigo;  }
+    public char getCodigo() { return codigo;  }
 }

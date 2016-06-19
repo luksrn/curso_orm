@@ -2,6 +2,7 @@ package br.edu.unirn.orm;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.BootstrapServiceRegistry;
 import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
@@ -20,6 +21,8 @@ import br.edu.unirn.orm.dominio.Musica;
 import br.edu.unirn.orm.dominio.Review;
 import br.edu.unirn.orm.dominio.ReviewBanda;
 import br.edu.unirn.orm.dominio.ReviewCD;
+import br.edu.unirn.orm.hibernate.GeneroSexualType;
+import br.edu.unirn.orm.hibernate.GeneroSexualTypeDescriptor;
 
 public class SessionFactoryHolder {
 	
@@ -59,9 +62,9 @@ public class SessionFactoryHolder {
 	}
 	
 	private static Metadata construirMetaData(ServiceRegistry sr){
-		MetadataSources sources = new MetadataSources(sr);
+		MetadataSources metadataSources = new MetadataSources(sr);
 		
-		sources.addAnnotatedClass( Artista.class )
+		metadataSources.addAnnotatedClass( Artista.class )
 			.addAnnotatedClass(Atuacao.class)
 			.addAnnotatedClass(ArtistaAtuacao.class)
 			.addAnnotatedClass(Genero.class)
@@ -73,8 +76,14 @@ public class SessionFactoryHolder {
 			.addAnnotatedClass(ReviewCD.class)
 			.addAnnotatedClass(ReviewBanda.class);
 		
-		 
-		Metadata metadata = sources.buildMetadata();
+		// define outras configurações 
+		MetadataBuilder metadataBuilder = metadataSources.getMetadataBuilder();
+		
+		metadataBuilder.applyBasicType(GeneroSexualType.INSTANCE, 
+										GeneroSexualType.INSTANCE.getName());
+
+		Metadata metadata = metadataBuilder.build();
+		
 		return metadata;
 	}
 

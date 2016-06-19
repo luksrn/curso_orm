@@ -12,7 +12,7 @@ public class GeneroSexualConverter
 	@Override
 	public Character convertToDatabaseColumn(GeneroSexual attribute) {
 		if(attribute == null) return null;
-		return attribute.getCode();
+		return attribute.getCodigo();
 	}
 
 	@Override

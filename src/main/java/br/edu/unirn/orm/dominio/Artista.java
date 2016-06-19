@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,13 +17,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.edu.unirn.orm.jpa.GeneroSexualConverter;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Artista {
 	
 	@Column(name="sexo",columnDefinition="char")
-	@Convert(converter=GeneroSexualConverter.class)
+	//@Convert(converter=GeneroSexualConverter.class)
+	@Type(type="generoSexual")
 	private GeneroSexual genero;
 	
 	@Id
