@@ -3,8 +3,11 @@ package br.edu.unirn.orm.dominio;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +23,13 @@ import javax.persistence.Table;
 @Table(name="grupo_musical")
 public class Banda {
 
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="anoInicio",column=@Column(name="ano_criacao")),
+		@AttributeOverride(name="anoFim",column=@Column(name="ano_fim_atividades"))
+	})
+	private IntervaloAnos periodoExistencia;
+	
 	@Id
 	@GeneratedValue(generator="banda_seq",strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="banda_seq",sequenceName="grupo_musical_seq")
@@ -28,11 +38,6 @@ public class Banda {
 	@Column(nullable=false)
 	private String denominacao;
 	
-	@Column(name="ano_inicio",nullable=false)
-	private Integer anoFormacao;
-	
-	@Column(name="ano_fim",nullable=true)
-	private Integer anoFinalizacao;
 	
 	@OneToMany(mappedBy="banda")
 	private Set<CD> albuns;
@@ -67,22 +72,14 @@ public class Banda {
 		this.denominacao = denominacao;
 	}
 
-	public Integer getAnoFormacao() {
-		return anoFormacao;
+	public IntervaloAnos getPeriodoExistencia() {
+		return periodoExistencia;
 	}
-
-	public void setAnoFormacao(Integer anoFormacao) {
-		this.anoFormacao = anoFormacao;
+	
+	public void setPeriodoExistencia(IntervaloAnos periodoExistencia) {
+		this.periodoExistencia = periodoExistencia;
 	}
-
-	public Integer getAnoFinalizacao() {
-		return anoFinalizacao;
-	}
-
-	public void setAnoFinalizacao(Integer anoFinalizacao) {
-		this.anoFinalizacao = anoFinalizacao;
-	}
-
+	
 	public Set<Genero> getGeneros() {
 		return generos;
 	}
