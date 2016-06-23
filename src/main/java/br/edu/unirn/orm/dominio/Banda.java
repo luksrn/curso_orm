@@ -25,8 +25,8 @@ public class Banda {
 
 	@Embedded
 	@AttributeOverrides({
-		@AttributeOverride(name="anoInicio",column=@Column(name="ano_criacao")),
-		@AttributeOverride(name="anoFim",column=@Column(name="ano_fim_atividades"))
+		@AttributeOverride(name="anoInicio",column=@Column(name="ano_inicio")),
+		@AttributeOverride(name="anoFim",column=@Column(name="ano_fim"))
 	})
 	private IntervaloAnos periodoExistencia;
 	

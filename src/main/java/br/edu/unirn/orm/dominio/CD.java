@@ -34,7 +34,7 @@ public class CD {
 	private Integer ano;
 
 	@OneToMany(mappedBy="album",
-			fetch=FetchType.EAGER)
+			fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private List<Musica> musica;	
 	
