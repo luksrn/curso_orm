@@ -12,7 +12,7 @@ insert into genero_musical ( id, denominacao )  values  (6,'MPB');
 insert into genero_musical ( id, denominacao )  values  (7,'Rock');
 insert into genero_musical ( id, denominacao )  values  (8,'Death Metal');
 
- 
+
 -- insert gravadoras
 insert into gravadora ( id, nome ) values (1,'Independete');
 insert into gravadora ( id, nome ) values (2,'EMI');
@@ -46,24 +46,50 @@ insert into grupo_genero_musical (id_genero_musical, id_grupo_musical ) values (
 
 
 
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (1, 'Caetano Veloso','M','1988-09-06', 'Caetano Emanuel Viana Teles Veloso é um músico, produtor, arranjador e escritor brasileiro.');
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (2, 'Roberto Carlos','M','1941-04-19','Roberto Carlos Braga é um cantor, empresário e compositor brasileiro.');
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (3, 'Luan Santana','M', '1991-03-13', NULL);
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (4, 'Gilberto Gil','M', '1942-06-26', NULL);
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (5, 'Ivete Zangalo','F', '1972-03-27', 'Ivete Maria Dias de Sangalo Cady é uma cantora, compositora, instrumentista, atriz, apresentadora, dubladora, produtora, empresária e escritora brasileira');
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (6, 'Fábio Junior','M', '1953-11-21', 'Fábio Júnior, nome artístico de Fábio Corrêa Ayrosa Galvão, é um cantor, compositor e ator brasileiro. Atuou em diversas telenovelas, quase todas da Rede Globo');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (1, 'Caetano Veloso');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (2, 'Roberto Carlos');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (3, 'Luan Santana');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (4, 'Gilberto Gil');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (5, 'Ivete Zangalo');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (6, 'Fábio Junior');
 
 -- artistas nightwish
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (7, 'Tarja Turunen','F', '1977-08-17', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (8, 'Emppu Vourinen','M', '1977-08-17', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (9, 'Tuomas Holopainen','M', '1966-01-14', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (10, 'Jukka Nevalainen','M', '1978-04-21', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (11, 'Marco Hietala','M', '1977-08-17', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (12, 'Floor Jansen','F', '1981-02-21', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (17, 'Anette Olzon','F', '1971-06-21', null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (18, 'Andrea Dätwyler','F', null, null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (19,  'Emilio MG Barrantes', 'M', null, null );
-INSERT INTO ARTISTA (ID, NOME_ARTISTA, SEXO, DATA_NASCIMENTO, BIOGRAFIA) VALUES (20, 'Ronny Wolf', 'M', '1971-06-21', null);
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (7, 'Tarja Turunen');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (8, 'Emppu Vourinen');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (9, 'Tuomas Holopainen');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (10, 'Jukka Nevalainen');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (11, 'Marco Hietala');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (12, 'Floor Jansen');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (17, 'Anette Olzon');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (18, 'Andrea Dätwyler');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (19,  'Emilio MG Barrantes');
+INSERT INTO ARTISTA (ID, NOME_ARTISTA) VALUES (20, 'Ronny Wolf');
+
+
+
+---
+
+
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (1, 1,'M','1988-09-06', 'Caetano Emanuel Viana Teles Veloso é um músico, produtor, arranjador e escritor brasileiro.');
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (2, 2 ,'M','1941-04-19','Roberto Carlos Braga é um cantor, empresário e compositor brasileiro.');
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (3, 3,'M', '1991-03-13', NULL);
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (4, 4,'M', '1942-06-26', NULL);
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (5, 5,'F', '1972-03-27', 'Ivete Maria Dias de Sangalo Cady é uma cantora, compositora, instrumentista, atriz, apresentadora, dubladora, produtora, empresária e escritora brasileira');
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (6, 6,'M', '1953-11-21', 'Fábio Júnior, nome artístico de Fábio Corrêa Ayrosa Galvão, é um cantor, compositor e ator brasileiro. Atuou em diversas telenovelas, quase todas da Rede Globo');
+
+-- artistas nightwish
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (7,7 ,'F', '1977-08-17', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (8,8 ,'M', '1977-08-17', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (9, 9,'M', '1966-01-14', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (10,10,'M', '1978-04-21', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (11, 11,'M', '1977-08-17', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (12, 12,'F', '1981-02-21', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (17, 17,'F', '1971-06-21', null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (18,18 ,'F', null, null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (19, 19, 'M', null, null );
+insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (20, 20, 'M', '1971-06-21', null);
+
+
 
 insert into atuacao( id, denominacao ) values (1, 'Bass');
 insert into atuacao( id, denominacao ) values (2, 'Keyboards');
@@ -145,7 +171,7 @@ insert into musica (id, numero, titulo, duracao, id_album ) values ( 28, 8, 'Loo
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 29, 9, 'Saucey Jack', 	04 , 12);
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 30, 10, 'We Will Fly', 	07 , 12);
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 31, 11, 'Atomic Soul', 	03 , 12);
- 
+
 -- avantasia
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 32, 1, 'Prelude', 1, 5);
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 33, 2,  'Reach Out for the Light', 1, 5);
@@ -166,7 +192,7 @@ insert into musica (id, numero, titulo, duracao, id_album ) values ( 46, 2, 'Los
 insert into musica (id, numero, titulo, duracao, id_album ) values ( 47, 3, 'Lost in Space (album version)' , 5, 7);
 
 
--- Review 
+-- Review
 insert into review (id, tipo_review, autor, data, descricao, pontuacao, id_album, id_grupo_musical) values (1, 1, 'lucas', '2016-06-08', 'Review de uma Banda NightWish', NULL, NULL, 1);
 
 insert into review (id, tipo_review, autor, data, descricao, pontuacao, id_album, id_grupo_musical) values (2, 2, 'rafael', '2016-02-08', 'Review de um CD  Lunatica', 86, 10, NULL);
@@ -182,3 +208,4 @@ ALTER SEQUENCE artista_atuacao_seq RESTART WITH 1000;
 
 ALTER SEQUENCE review_seq RESTART WITH 1000;
 
+ALTER SEQUENCE artista_detalhe_seq RESTART WITH 1000;

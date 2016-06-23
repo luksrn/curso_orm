@@ -1,7 +1,6 @@
 package br.edu.unirn.orm.dominio;
  
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -13,19 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 public class Artista {
-	
-	@Column(name="sexo",columnDefinition="char")
-	//@Convert(converter=GeneroSexualConverter.class)
-	@Type(type="generoSexual")
-	private GeneroSexual genero;
 	
 	@Id
 	@GeneratedValue(generator="artista_seq",strategy=GenerationType.SEQUENCE)
@@ -36,14 +27,11 @@ public class Artista {
 	@Column(name="nome_artista",nullable=false)
 	private String nome;
 	
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="DATA_NASCIMENTO")
-	private Date dataNascimento;
-	 
-	@Basic(fetch=FetchType.LAZY)
-	@Column(length=65535,nullable=true)
-	private String biografia;
+	@OneToOne(mappedBy="artista",
+			fetch=FetchType.LAZY,
+			cascade=CascadeType.ALL,
+			orphanRemoval=true)
+	private ArtistaDetalhe detalhes;
 	
 	@OneToMany(mappedBy="artista",
 			cascade=CascadeType.ALL)
@@ -78,30 +66,14 @@ public class Artista {
 		this.nome = nome;
 	}
 
-	public GeneroSexual getGenero() {
-		return genero;
+	public ArtistaDetalhe getDetalhes() {
+		return detalhes;
 	}
-
-	public void setGenero(GeneroSexual sexo) {
-		this.genero = sexo;
+	
+	public void setDetalhes(ArtistaDetalhe detalhes) {
+		this.detalhes = detalhes;
 	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getBiografia() {
-		return biografia;
-	}
-
-	public void setBiografia(String biografia) {
-		this.biografia = biografia;
-	}
-
+	
 	public List<ArtistaAtuacao> getArtistaAtuacao() {
 		return artistaAtuacao;
 	}

@@ -2,13 +2,11 @@ package br.edu.unirn.orm;
 
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.Artista;
+import br.edu.unirn.orm.dominio.ArtistaDetalhe;
 import br.edu.unirn.orm.dominio.GeneroSexual;
 import br.edu.unirn.utils.AbstractTest;
 import br.edu.unirn.utils.DataHelper;
@@ -26,9 +24,13 @@ public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelp
 		doInTransaction( session -> {
 			Artista safadao = new Artista();
 			safadao.setNome("Wesley Safadão");
-			safadao.setDataNascimento( asData("06/09/1988") );
-			safadao.setGenero(GeneroSexual.MASCULINO);
-			safadao.setBiografia("Wesley Oliveira da Silva, mais conhecido como Wesley Safadão, é um cantor, produtor e empresário brasileiro de forró eletrônico");
+			
+			ArtistaDetalhe detalhes = new ArtistaDetalhe();
+			detalhes.setDataNascimento( asData("06/09/1988") );
+			detalhes.setGenero(GeneroSexual.MASCULINO);
+			detalhes.setBiografia("Wesley Oliveira da Silva, mais conhecido como Wesley Safadão, é um cantor, produtor e empresário brasileiro de forró eletrônico");
+			
+			safadao.setDetalhes(detalhes);
 			
 			session.persist(safadao);
 			Assert.assertTrue( safadao.getId() != null );
@@ -44,8 +46,25 @@ public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelp
 			
 			assertTrue( artista.getId() == 1L );
 			assertTrue( artista.getNome().equals("Caetano Veloso"));
-			assertTrue( artista.getGenero() == GeneroSexual.MASCULINO);
-			assertTrue( artista.getBiografia().toString() != null );
+			assertTrue( artista.getDetalhes().getGenero() == GeneroSexual.MASCULINO);
+			assertTrue( artista.getDetalhes().getBiografia().toString() != null );
+		});
+	}
+	
+	@Test
+	public void leituraERemocaoDosDetalhes(){
+	
+		doInTransaction( session -> {
+			Artista artista = session.get(Artista.class, 1L);
+			 
+			artista.setDetalhes(null);
+
+			session.save(artista);
+		});
+		doWithSession(session -> {
+
+			Artista artista = session.get(Artista.class, 1L);
+			assertTrue( artista.getDetalhes() == null );
 		});
 	}
 	

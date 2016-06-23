@@ -12,6 +12,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import br.edu.unirn.orm.dominio.Artista;
 import br.edu.unirn.orm.dominio.ArtistaAtuacao;
+import br.edu.unirn.orm.dominio.ArtistaDetalhe;
 import br.edu.unirn.orm.dominio.Atuacao;
 import br.edu.unirn.orm.dominio.Banda;
 import br.edu.unirn.orm.dominio.CD;
@@ -65,6 +66,7 @@ public class SessionFactoryHolder {
 		MetadataSources metadataSources = new MetadataSources(sr);
 		
 		metadataSources.addAnnotatedClass( Artista.class )
+			.addAnnotatedClass(ArtistaDetalhe.class)
 			.addAnnotatedClass(Atuacao.class)
 			.addAnnotatedClass(ArtistaAtuacao.class)
 			.addAnnotatedClass(Genero.class)
