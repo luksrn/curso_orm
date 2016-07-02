@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -35,7 +34,6 @@ public class ArtistaDetalhe {
 	private Artista artista;
 	
 	@Column(name="sexo",columnDefinition="char")
-	//@Convert(converter=GeneroSexualConverter.class)
 	@Type(type="generoSexual")
 	private GeneroSexual genero;
 	

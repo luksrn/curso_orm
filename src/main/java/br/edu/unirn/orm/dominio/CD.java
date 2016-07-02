@@ -36,7 +36,7 @@ public class CD {
 	@OneToMany(mappedBy="album",
 			fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<Musica> musica;	
+	private List<Musica> musicas;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_grupo_musical")
@@ -67,11 +67,11 @@ public class CD {
 	}
 
 	public List<Musica> getMusicas() {
-		return musica;
+		return musicas;
 	}
 
 	public void setMusicas(List<Musica> musica) {
-		this.musica = musica;
+		this.musicas = musica;
 	}
 	
 	

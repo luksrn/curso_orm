@@ -1,9 +1,9 @@
 package br.edu.unirn.orm.jpa;
 
-import br.edu.unirn.orm.dominio.GeneroSexual;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import br.edu.unirn.orm.dominio.GeneroSexual;
 
 @Converter
 public class GeneroSexualConverter 

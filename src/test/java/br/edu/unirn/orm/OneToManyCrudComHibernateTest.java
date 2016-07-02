@@ -1,10 +1,10 @@
 package br.edu.unirn.orm;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
+
+import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.CD;
 import br.edu.unirn.orm.dominio.Musica;

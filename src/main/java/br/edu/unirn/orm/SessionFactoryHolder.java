@@ -23,7 +23,6 @@ import br.edu.unirn.orm.dominio.Review;
 import br.edu.unirn.orm.dominio.ReviewBanda;
 import br.edu.unirn.orm.dominio.ReviewCD;
 import br.edu.unirn.orm.hibernate.GeneroSexualType;
-import br.edu.unirn.orm.hibernate.GeneroSexualTypeDescriptor;
 
 public class SessionFactoryHolder {
 	

@@ -23,6 +23,7 @@ dependencies {
 	
 	// Testes 
     testCompile 'junit:junit:4.+'
+	testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
 uploadArchives {

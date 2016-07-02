@@ -1,6 +1,7 @@
 package br.edu.unirn.orm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.Banda;

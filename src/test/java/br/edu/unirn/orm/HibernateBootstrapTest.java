@@ -9,7 +9,9 @@ public class HibernateBootstrapTest extends AbstractTest {
 	
 	@Test
 	public void testInicializacaoSucesso(){
-		Assert.assertTrue( SessionFactoryHolder.getSessionFactory().isOpen() );		
+		Assert.assertTrue( 
+			SessionFactoryHolder.getSessionFactory().isOpen() 
+		);		
 		
 	}
 	

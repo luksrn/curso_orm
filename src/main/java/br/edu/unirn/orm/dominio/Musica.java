@@ -3,6 +3,7 @@ package br.edu.unirn.orm.dominio;
 import java.time.Duration;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class Musica {
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_album")
 	private CD album;
 
