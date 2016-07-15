@@ -11,10 +11,21 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+@NamedQueries({
+	@NamedQuery(name="findByNome",
+			query="select a from Artista a where a.nome like :nome"),
+	@NamedQuery(name="findByAtuacao",
+			query="select a from Artista a "
+			+ " join a.artistaAtuacao artistaAtuacao "
+			+ " join artistaAtuacao.atuacao atuacao "
+			+ " where atuacao.denominacao = :denominacao")
+})
 @Entity
 public class Artista {
 	
