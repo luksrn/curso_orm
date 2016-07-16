@@ -69,6 +69,9 @@ public class AbstractTest {
 		try {
 			session = sessionFactory.openSession();
 			resultado = funcao.apply(session);
+		} catch (RuntimeException e){
+			e.printStackTrace();
+			throw e;
 		} finally {
 			if ( session != null && session.isOpen()){ session.close();}
 		}
@@ -80,6 +83,9 @@ public class AbstractTest {
 		try {
 			session = sessionFactory.openSession();
 			consumer.accept(session);
+		} catch (RuntimeException e){
+			e.printStackTrace();
+			throw e;
 		} finally {
 			if ( session != null && session.isOpen()){ session.close();}
 		} 

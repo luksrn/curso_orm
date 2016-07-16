@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.persistence.NonUniqueResultException;
-
 import org.hibernate.query.Query;
 import org.junit.Test;
 
@@ -220,7 +218,7 @@ public class ConsultaHqlTest extends AbstractTest {
 		});
 	}
 	
-	@Test(expected=NonUniqueResultException.class)
+	@Test(expected=org.hibernate.NonUniqueResultException.class)
 	public void testConsultaComResultadoUnicoNonUniqueResultException(){
 		
 		doWithSession( session -> {
