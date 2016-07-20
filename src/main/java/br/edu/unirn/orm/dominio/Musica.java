@@ -69,19 +69,5 @@ public class Musica {
 
 	public void setAlbum(CD album) {
 		this.album = album;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println( Duration.ofMinutes(1));
-
-		System.out.println( Duration.ofSeconds(240)); // 2min
-
-		System.out.println( Duration.ofSeconds(460).toMinutes()); //
-
-		System.out.println( Duration.ofMinutes(6));
-
-		System.out.println( Duration.ofMinutes(2));
-	}
-	
-	
+	}	
 }

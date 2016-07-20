@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.Type;
 /**
@@ -28,6 +29,9 @@ public class ArtistaDetalhe {
 	@GeneratedValue(generator="artista_detalhe",strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="artista_detalhe",sequenceName="artista_detalhe_seq")
 	private Long id;
+	
+	@Version
+	private Integer version = 0;
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_artista")
@@ -44,6 +48,7 @@ public class ArtistaDetalhe {
 	@Basic(fetch=FetchType.LAZY)
 	@Column(length=65535,nullable=true)
 	private String biografia;
+	
 
 	public Long getId() {
 		return id;

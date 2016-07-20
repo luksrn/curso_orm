@@ -39,6 +39,7 @@ public class AbstractTest {
 						tx.getStatus() == TransactionStatus.ACTIVE || 
 						tx.getStatus() == TransactionStatus.MARKED_ROLLBACK) 
 			){ tx.rollback(); }
+			e.printStackTrace();
 			throw e;
 		} finally {
 			if ( session != null && session.isOpen()){ session.close();}
@@ -56,7 +57,13 @@ public class AbstractTest {
 			consumer.accept(session);
 			tx.commit();
 		} catch (RuntimeException e){
-			if ( tx != null && tx.isActive() ){ tx.rollback(); }
+			if ( tx != null && (
+					tx.getStatus() == TransactionStatus.ACTIVE || 
+					tx.getStatus() == TransactionStatus.MARKED_ROLLBACK) 
+					){ 
+				tx.rollback(); 
+			}
+			e.printStackTrace();
 			throw e;
 		} finally {
 			if ( session != null && session.isOpen()){ session.close();}

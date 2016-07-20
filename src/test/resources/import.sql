@@ -90,6 +90,7 @@ insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VA
 insert into ArtistaDetalhe (id, id_artista, sexo, DATA_NASCIMENTO, biografia) VALUES (20, 20, 'M', '1971-06-21', null);
 
 
+update ArtistaDetalhe set version = 0;
 
 insert into atuacao( id, denominacao ) values (1, 'Bass');
 insert into atuacao( id, denominacao ) values (2, 'Keyboards');

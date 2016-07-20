@@ -19,7 +19,9 @@ import javax.persistence.SequenceGenerator;
 
 @NamedQueries({
 	@NamedQuery(name="findByNome",
-			query="select a from Artista a where a.nome like :nome"),
+			query="select a from Artista a "
+					+ " join fetch a.detalhes d "
+					+ " where a.nome like :nome"),
 	@NamedQuery(name="findByAtuacao",
 			query="select a from Artista a "
 			+ " join a.artistaAtuacao artistaAtuacao "
