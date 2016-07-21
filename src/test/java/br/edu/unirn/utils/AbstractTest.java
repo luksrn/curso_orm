@@ -1,5 +1,13 @@
 package br.edu.unirn.utils;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -98,5 +106,25 @@ public class AbstractTest {
 		} 
 	}
 
+    protected void executeSync(VoidCallable callable) {
+    	executeSync(Collections.singleton(callable));
+	}
+    
+	protected void executeSync(Collection<VoidCallable> callables) {
+        try {
+            List<Future<Void>> futures = executorService.invokeAll(callables);
+            for (Future<Void> future : futures) {
+                future.get();
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+	}
+	
+	private final ExecutorService executorService = Executors.newSingleThreadExecutor(r -> {
+        Thread bob = new Thread(r);
+        bob.setName("Bob");
+        return bob;
+});
 
 }
