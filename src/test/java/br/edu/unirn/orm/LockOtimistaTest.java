@@ -48,7 +48,7 @@ Hibernate:
 		doInTransaction( session -> {
 			Artista roberto = session.get(Artista.class, 3L);
 			roberto.getDetalhes().setBiografia("Biografia alterada...");
-			session.save(roberto);
+			session.update(roberto);
 		});
 		 
 	}
@@ -71,13 +71,13 @@ Hibernate:
 					.setParameter("nome", "Roberto Carlos")
 					.getSingleResult(); 
 			roberto.getDetalhes().setBiografia("Biografia alterada...");
-			session.save(roberto);
+			session.update(roberto);
 		});
 		
 		// Escrito pelo User A // javax.persistence.OptimisticLockException: ->  org.hibernate.StaleStateException:
 		doInTransaction( session -> {
 			artista.getDetalhes().setBiografia("Conlisão!!!");
-			session.save(artista);
+			session.update(artista);
 		});
 	}
 
@@ -104,13 +104,41 @@ Hibernate:
 					.setParameter("nome", "Roberto Carlos")
 					.getSingleResult(); 
 			roberto.getDetalhes().setBiografia("Biografia alterada...");
-			session.save(roberto);
+			session.update(roberto);
 		});
 		
 		// Escrito pelo User A // javax.persistence.OptimisticLockException: ->  org.hibernate.StaleStateException:
 		doInTransaction( session -> {
 			artista.getDetalhes().setDataNascimento(new Date());
-			session.save(artista);
+			session.update(artista);
+		});
+	}
+ 
+	@Test
+	public void testColisaoCamposObjetosDiferentesLockOtimista(){
+		// Detached Artista (Lido pelo User A)
+		Artista artista = doWithSession( session -> {
+			
+			Artista roberto = session.createNamedQuery("findByNome", Artista.class)
+					.setParameter("nome", "Roberto Carlos")
+					.getSingleResult(); 
+			return roberto;
+		});
+		
+		// Lido e escrito pelo User B
+		doInTransaction( session -> {
+
+			Artista roberto = session.createNamedQuery("findByNome", Artista.class)
+					.setParameter("nome", "Roberto Carlos")
+					.getSingleResult(); 
+			roberto.setNome("Nome alterado...");
+			session.update(roberto);
+		});
+		
+		// Escrito pelo User A // javax.persistence.OptimisticLockException: ->  org.hibernate.StaleStateException:
+		doInTransaction( session -> {
+			artista.getDetalhes().setDataNascimento(new Date());
+			session.update(artista);
 		});
 	}
  
