@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
 
 /**
  * 
@@ -34,4 +35,5 @@ public abstract class AbstractDAO<T,ID extends Serializable>  implements DAO<T, 
 		Session session = getCurrentSession();
 		consumer.accept(session);		
 	}
+	
 }

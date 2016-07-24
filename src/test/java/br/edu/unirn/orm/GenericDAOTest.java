@@ -11,9 +11,16 @@ import org.junit.Test;
 import br.edu.unirn.orm.dominio.Genero;
 import br.edu.unirn.orm.dominio.dao.GeneroDAO;
 import br.edu.unirn.utils.AbstractTest;
-
-public class GenericDAOTest extends AbstractTest {
-	 
+/**
+ * 
+ * ***
+ * http://what-when-how.com/hibernate/implementing-conversations-hibernate/
+ * ***
+ * 
+ * @author lucas.oliveira
+ *
+ */
+public class GenericDAOTest extends AbstractTest {	 
 	
 	/**
 	 * Esta abordagem é considerada um padrão pela documentação. Além disso,
@@ -64,9 +71,7 @@ public class GenericDAOTest extends AbstractTest {
 			
 			// Este trecho de código mostra que a Session é compartilhada
 			// dentro do escopo da thread!
-			generoDAO2.doWithCurrentSession( session -> {
-				Assert.assertTrue( session.contains(generoA) );
-			});
+			generoDAO2.getCurrentSession().contains(generoA);
 			
 			
 			// Remover GeneroA
