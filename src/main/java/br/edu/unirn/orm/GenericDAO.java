@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @param <T> Tipo do dominio associado ao DAO
  */
-public class GenericDAO<T> extends AbstractDAO<T,Long> {
+public class GenericDAO<T> extends AbstractHibernateDAO<T,Long> {
 	
 	private Class<T> dominio;
 	

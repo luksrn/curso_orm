@@ -13,7 +13,8 @@ import org.hibernate.StatelessSession;
  * @param <T>
  * @param <ID>
  */
-public abstract class AbstractDAO<T,ID extends Serializable>  implements DAO<T, ID> {
+public abstract class AbstractHibernateDAO<T,ID extends Serializable> 
+				implements DAO<T, ID> {
 	
 	private SessionFactory sessionFactory = SessionFactoryHolder.getSessionFactory();
 	
