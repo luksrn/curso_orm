@@ -15,8 +15,6 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.junit.After;
 import org.junit.Before;
 
-import br.edu.unirn.orm.HibernateSessionConsumer;
-import br.edu.unirn.orm.HibernateSessionFunction;
 import br.edu.unirn.orm.SessionFactoryHolder;
 
 public class AbstractTest {
