@@ -20,14 +20,18 @@ public abstract class AbstractDAO<T,ID extends Serializable>  implements DAO<T, 
 		return sessionFactory;
 	}
 	
+	public Session getCurrentSession(){
+		return sessionFactory.getCurrentSession();
+	}
+	
 	public <R> R doWithCurrentSession( HibernateSessionFunction<R> funcao ){
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getCurrentSession();
 		R resultado = funcao.apply(session);		
 		return resultado;
 	}
 	
 	public void doWithCurrentSession( HibernateSessionConsumer consumer ){		
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getCurrentSession();
 		consumer.accept(session);		
 	}
 }

@@ -1,5 +1,7 @@
 package br.edu.unirn.orm;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.hibernate.Transaction;
@@ -7,13 +9,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.edu.unirn.orm.dominio.Genero;
+import br.edu.unirn.orm.dominio.dao.GeneroDAO;
 import br.edu.unirn.utils.AbstractTest;
 
 public class GenericDAOTest extends AbstractTest {
 	 
 	
 	/**
-	 * Esta abordagem é considerada um antipattern pela documentação.
+	 * Esta abordagem é considerada um padrão pela documentação. Além disso,
+	 * este teste é grande para mostrar a colaboração da session entre os componentes DAO.
 	 * 
 	 * Log: org.hibernate.engine.internal.StatisticalLoggingSessionEventListener
 	 */
@@ -35,7 +39,6 @@ public class GenericDAOTest extends AbstractTest {
 			generoDAO.doWithCurrentSession( session -> {
 				Assert.assertTrue( session.contains(generoA) );
 			});
-			generoDAO.deletar(generoA);
 			
 			List<Genero> generos = generoDAO.buscar();
 			
@@ -52,6 +55,23 @@ public class GenericDAOTest extends AbstractTest {
 			Assert.assertTrue( generosPaginados.get(0).getId() == generos.get(2).getId());
 	
 			Assert.assertTrue( generosPaginados.get(2).getId() == generos.get(4).getId());
+			
+			GeneroDAO generoDAO2 = new GeneroDAO();
+			
+			List<Genero> generosMetal = generoDAO2.buscarPorDenominacao("Metal");
+
+			assertTrue( generosMetal.size() == 4 );
+			
+			// Este trecho de código mostra que a Session é compartilhada
+			// dentro do escopo da thread!
+			generoDAO2.doWithCurrentSession( session -> {
+				Assert.assertTrue( session.contains(generoA) );
+			});
+			
+			
+			// Remover GeneroA
+
+			generoDAO.deletar(generoA);
 			
 			tx.commit();
 		} catch (RuntimeException e){
