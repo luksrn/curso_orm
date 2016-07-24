@@ -25,7 +25,7 @@ public class GenericDAO<T> extends AbstractDAO<T,Long> {
 	
 	@Override
 	public T salvar(T entidade) {
-		return doInTransaction( session -> {
+		return doWithCurrentSession( session -> {
 			session.saveOrUpdate(entidade);
 			return entidade;
 		});
@@ -33,14 +33,14 @@ public class GenericDAO<T> extends AbstractDAO<T,Long> {
 
 	@Override
 	public void deletar(T entidade) {
-		doInTransaction( session -> {
+		doWithCurrentSession( session -> {
 			session.delete(entidade);
 		});
 	}
 
 	@Override
 	public long contar() {
-		return doWithSession( session -> {
+		return doWithCurrentSession( session -> {
 			CriteriaBuilder builder = session.getCriteriaBuilder();			
 			CriteriaQuery<Long> criteria = builder.createQuery(Long.class);			
 			criteria.select(builder.count(criteria.from(dominio)));
@@ -51,7 +51,7 @@ public class GenericDAO<T> extends AbstractDAO<T,Long> {
 	@Override
 	public List<T> buscar() { 
 		
-		return doWithSession( session -> {
+		return doWithCurrentSession( session -> {
 			CriteriaBuilder builder = session.getCriteriaBuilder();			
 			CriteriaQuery<T> criteria = builder.createQuery(dominio);			
 			criteria.from(dominio);
@@ -62,7 +62,7 @@ public class GenericDAO<T> extends AbstractDAO<T,Long> {
 	@Override
 	public List<T> buscar(int offset, int max) { 
 
-		return doWithSession( session -> {
+		return doWithCurrentSession( session -> {
 			CriteriaBuilder builder = session.getCriteriaBuilder();			
 			CriteriaQuery<T> criteria = builder.createQuery(dominio);			
 			criteria.from(dominio);

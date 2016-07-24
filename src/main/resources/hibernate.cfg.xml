@@ -25,6 +25,10 @@
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create</property>
+        
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <property name="hibernate.generate_statistics">true</property>
+        
 <!-- 
         <mapping resource="br/edu/unirn/orm/dominio/Artista.hbm.xml"/> -->
          <!-- 
