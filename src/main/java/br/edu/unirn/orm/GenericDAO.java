@@ -25,50 +25,38 @@ public class GenericDAO<T> extends AbstractDAO<T,Long> {
 	
 	@Override
 	public T salvar(T entidade) {
-		return doWithCurrentSession( session -> {
-			session.saveOrUpdate(entidade);
-			return entidade;
-		});
+		getCurrentSession().saveOrUpdate(entidade);
+		return entidade;
 	}
 
 	@Override
 	public void deletar(T entidade) {
-		doWithCurrentSession( session -> {
-			session.delete(entidade);
-		});
+		getCurrentSession().delete(entidade);
 	}
 
 	@Override
 	public long contar() {
-		return doWithCurrentSession( session -> {
-			CriteriaBuilder builder = session.getCriteriaBuilder();			
-			CriteriaQuery<Long> criteria = builder.createQuery(Long.class);			
-			criteria.select(builder.count(criteria.from(dominio)));
-			return session.createQuery(criteria).getSingleResult();
-		});
+		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);			
+		criteria.select(builder.count(criteria.from(dominio)));
+		return getCurrentSession().createQuery(criteria).getSingleResult();
 	}
 
 	@Override
 	public List<T> buscar() { 
-		
-		return doWithCurrentSession( session -> {
-			CriteriaBuilder builder = session.getCriteriaBuilder();			
-			CriteriaQuery<T> criteria = builder.createQuery(dominio);			
-			criteria.from(dominio);
-			return session.createQuery(criteria).getResultList();			
-		});
+		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
+		CriteriaQuery<T> criteria = builder.createQuery(dominio);			
+		criteria.from(dominio);
+		return getCurrentSession().createQuery(criteria).getResultList();	
 	}
 
 	@Override
 	public List<T> buscar(int offset, int max) { 
-
-		return doWithCurrentSession( session -> {
-			CriteriaBuilder builder = session.getCriteriaBuilder();			
-			CriteriaQuery<T> criteria = builder.createQuery(dominio);			
-			criteria.from(dominio);
-			return session.createQuery(criteria)
-					.setFirstResult(offset).setMaxResults(max).getResultList();			
-		});
+		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
+		CriteriaQuery<T> criteria = builder.createQuery(dominio);			
+		criteria.from(dominio);
+		return getCurrentSession().createQuery(criteria)
+				.setFirstResult(offset).setMaxResults(max).getResultList();
 	}
 	
 }

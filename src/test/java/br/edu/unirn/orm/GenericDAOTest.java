@@ -43,9 +43,8 @@ public class GenericDAOTest extends AbstractTest {
 			generoDAO.salvar(generoA);
 			
 			// Efeito do Session Per Request!!!
-			generoDAO.doWithCurrentSession( session -> {
-				Assert.assertTrue( session.contains(generoA) );
-			});
+			generoDAO.getCurrentSession().contains(generoA);
+			
 			
 			List<Genero> generos = generoDAO.buscar();
 			
