@@ -8,7 +8,10 @@ import org.hibernate.boot.registry.BootstrapServiceRegistry;
 import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
+
+import com.zaxxer.hikari.HikariDataSource;
 
 import br.edu.unirn.orm.dominio.Artista;
 import br.edu.unirn.orm.dominio.ArtistaAtuacao;
@@ -52,12 +55,12 @@ public class SessionFactoryHolder {
 	 * @return
 	 */
 	private static ServiceRegistry construirServiceRegistry(){
-		
+		 
 		ServiceRegistry standarServiceRegistry = 
 				new StandardServiceRegistryBuilder()
 					.configure()
 					.build();
-		
+		 
 		return standarServiceRegistry;
 	}
 	

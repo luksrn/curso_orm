@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,8 +20,16 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="album")
+@NamedEntityGraph(name = "cdComMusicas",
+    attributeNodes = @NamedAttributeNode("musicas")
+)
 public class CD {
 
+	@OneToMany(mappedBy="album",
+			fetch=FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE})
+	private List<Musica> musicas;	
+	
 	@ManyToOne
 	@JoinColumn(name="id_gravadora")
 	private Gravadora gravadora;
@@ -33,10 +43,6 @@ public class CD {
 	
 	private Integer ano;
 
-	@OneToMany(mappedBy="album",
-			fetch=FetchType.LAZY)
-	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<Musica> musicas;	
 	
 	@ManyToOne
 	@JoinColumn(name="id_grupo_musical")

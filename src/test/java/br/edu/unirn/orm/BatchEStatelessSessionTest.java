@@ -55,6 +55,7 @@ public class BatchEStatelessSessionTest extends AbstractTest {
 	
 	
 	@Test
+	@Ignore
 	public void testInsercao100_000RegistrosStatelessSession(){
 		
 		StatelessSession statelessSession = SessionFactoryHolder

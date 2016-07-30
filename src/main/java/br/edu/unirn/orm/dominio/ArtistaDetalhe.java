@@ -15,8 +15,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Length;
 /**
  * Informações detalhadas do artista.
  *  
@@ -35,18 +38,22 @@ public class ArtistaDetalhe {
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_artista")
+	@NotNull(message="O detalhe deve possuir um artista associado.")
 	private Artista artista;
 	
 	@Column(name="sexo",columnDefinition="char")
 	@Type(type="generoSexual")
+	@NotNull(message="O artista deve possuir um genero sexual")
 	private GeneroSexual genero;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATA_NASCIMENTO")
+	@Past(message="O artista deve possuir uma Data de Nascimento no passado.")
 	private Date dataNascimento;
 	 
 	@Basic(fetch=FetchType.LAZY)
 	@Column(length=65535,nullable=true)
+	@Length(max=65535,message="O artista deve possuir uma biografia de no máximo {max} caracteres.")
 	private String biografia;
 	
 
@@ -80,6 +87,13 @@ public class ArtistaDetalhe {
 
 	public void setBiografia(String biografia) {
 		this.biografia = biografia;
+	}
+	
+	public Artista getArtista() {
+		return artista;
+	}
+	public void setArtista(Artista artista) {
+		this.artista = artista;
 	}
 	
 }

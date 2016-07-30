@@ -12,7 +12,8 @@ public class GeneroDAO extends GenericDAO<Genero> {
 	}
 
 	public List<Genero> buscarPorDenominacao(String denominacao){		
-		List<Genero> generos = getCurrentSession().createQuery("select g from Genero g "
+		List<Genero> generos = getCurrentSession().createQuery(
+				"select g from Genero g "
 				+ " where g.denominacao like ?",Genero.class)
 					.setParameter(0, "%"+ denominacao +"%")
 					.getResultList();

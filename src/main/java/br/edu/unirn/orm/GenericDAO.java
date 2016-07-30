@@ -16,7 +16,8 @@ import org.hibernate.SessionFactory;
  */
 public class GenericDAO<T> implements DAO<T,Long> {
 	
-	private SessionFactory sessionFactory = SessionFactoryHolder.getSessionFactory();
+	private SessionFactory sessionFactory = SessionFactoryHolder
+												.getSessionFactory();
 	
 	private Class<T> dominio;
 	
@@ -24,40 +25,30 @@ public class GenericDAO<T> implements DAO<T,Long> {
 		this.dominio = dominio;
 	}
 	
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-	
 	public Session getCurrentSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 	
 	public Class<T> getDominio(){
 		return dominio;
 	}
 	
-	@Override
+	
 	public T salvar(T entidade) {
 		getCurrentSession().saveOrUpdate(entidade);
 		return entidade;
 	}
 
-	@Override
+	
 	public void deletar(T entidade) {
 		getCurrentSession().delete(entidade);
 	}
 
-	@Override
-	public long contar() {
-		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
-		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);			
-		criteria.select(builder.count(criteria.from(dominio)));
-		return getCurrentSession().createQuery(criteria).getSingleResult();
-	}
-
-	@Override
+	
 	public List<T> buscar() { 
 		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
 		CriteriaQuery<T> criteria = builder.createQuery(dominio);			
@@ -65,7 +56,15 @@ public class GenericDAO<T> implements DAO<T,Long> {
 		return getCurrentSession().createQuery(criteria).getResultList();	
 	}
 
-	@Override
+	
+	public long contar() {
+		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);			
+		criteria.select(builder.count(criteria.from(dominio)));
+		return getCurrentSession().createQuery(criteria).getSingleResult();
+	}
+
+	
 	public List<T> buscar(int offset, int max) { 
 		CriteriaBuilder builder = getCurrentSession().getCriteriaBuilder();			
 		CriteriaQuery<T> criteria = builder.createQuery(dominio);			

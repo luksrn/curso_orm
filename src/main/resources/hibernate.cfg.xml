@@ -7,15 +7,27 @@
 
     <session-factory>
 
-        <!-- Database connection settings -->
+        <!-- Database connection settings 
         <property name="connection.driver_class">org.h2.Driver</property>
         <property name="connection.url">jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE</property>
         <property name="connection.username">sa</property>
         <property name="connection.password"/>
+        --> 
+        <property name="hibernate.connection.provider_class">
+        	org.hibernate.hikaricp.internal.HikariCPConnectionProvider
+        </property>
+        <property name="hibernate.hikari.jdbcUrl">
+        	jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE
+        </property>
+        <property name="hibernate.hikari.dataSource.user">sa</property>
+        <property name="hibernate.hikari.dataSource.password"></property>
+        <property name="hibernate.hikari.minimumIdle">5</property>
+        <property name="hibernate.hikari.maximumPoolSize">10</property>
+        <property name="hibernate.hikari.idleTimeout">3000</property>
 
 
         <!-- SQL dialect -->
-        <property name="dialect">H2</property>
+        <property name="hibernate.dialect">H2</property>
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
@@ -26,7 +38,11 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">create</property>
         
-        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <!-- a palavra "thread" também é um possível valor da propery -->
+        <property name="hibernate.current_session_context_class">
+        	org.hibernate.context.internal.ThreadLocalSessionContext
+        </property>
+        
         <property name="hibernate.generate_statistics">true</property>
         
 <!-- 

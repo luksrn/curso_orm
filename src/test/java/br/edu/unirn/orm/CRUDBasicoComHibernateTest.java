@@ -29,7 +29,7 @@ public class CRUDBasicoComHibernateTest extends AbstractTest implements DataHelp
 			detalhes.setDataNascimento( asData("06/09/1988") );
 			detalhes.setGenero(GeneroSexual.MASCULINO);
 			detalhes.setBiografia("Wesley Oliveira da Silva, mais conhecido como Wesley Safadão, é um cantor, produtor e empresário brasileiro de forró eletrônico");
-			
+			detalhes.setArtista(safadao);
 			safadao.setDetalhes(detalhes);
 			
 			session.persist(safadao);

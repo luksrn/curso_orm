@@ -1,6 +1,7 @@
 package br.edu.unirn.orm.dominio;
  
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -11,11 +12,20 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @NamedQueries({
 	@NamedQuery(name="findByNome",
@@ -28,6 +38,10 @@ import javax.persistence.SequenceGenerator;
 			+ " join artistaAtuacao.atuacao atuacao "
 			+ " where atuacao.denominacao = :denominacao")
 })
+
+
+
+
 @Entity
 public class Artista {
 	
@@ -36,15 +50,29 @@ public class Artista {
 	@SequenceGenerator(name="artista_seq",sequenceName="artista_seq")
 	private Long id;
 	
-	@Basic
 	@Column(name="nome_artista",nullable=false)
+	@NotEmpty(message="O artista deve possuir um nome!")
+	@Length(max=255,message="O nome do artista deve possuir "
+			+ " no máximo {max} caracteres.")
 	private String nome;
+	
 	
 	@OneToOne(mappedBy="artista",
 			fetch=FetchType.LAZY,
 			cascade=CascadeType.ALL,
 			orphanRemoval=true)
+	@Valid
+	@NotNull(message="O artista deve possuir detalhes!")
 	private ArtistaDetalhe detalhes;
+	
+	
+	@Column(name="data_cadastro")
+	private Date dataCadastro;
+
+	@Column(name="ultima_atualizacao")
+	private Date ultimaAtualizacao;
+	
+
 	
 	@OneToMany(mappedBy="artista",
 			cascade=CascadeType.ALL)
@@ -62,7 +90,18 @@ public class Artista {
 		
 		this.artistaAtuacao.add(artistaAtuacao);
 	}
+	
+	@PreUpdate
+	public void preUpdate(){
+		System.out.println("Atualizando data da última atualização... @PreUpdate");
+		ultimaAtualizacao = new Date();
+	}
 
+	@PostLoad
+	public void postLoad(){
+		System.out.println("Dominio carregado...");
+	}
+	
 	public Long getId() {
 		return id;
 	}

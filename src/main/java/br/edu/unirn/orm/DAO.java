@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * @author lucas.oliveira
  *
- * @param <T>
- * @param <ID>
+ * @param <T> - Entidade Persistente
+ * @param <ID> - Chave Primária
  */
 public interface DAO <T, ID extends Serializable> {
 

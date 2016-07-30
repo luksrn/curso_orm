@@ -31,10 +31,7 @@ public class GenericDAOTest extends AbstractTest {
 	@Test
 	public void testarComunicacaoSessionEmUmDAO_SessionPerRequest(){		
 		
-		Transaction tx =  SessionFactoryHolder.getSessionFactory().getCurrentSession().getTransaction();
-		
-		try {
-			tx.begin();
+		doInTransaction(() -> {
 			
 			GenericDAO<Genero> generoDAO = new GenericDAO<>(Genero.class);
 			
@@ -43,8 +40,8 @@ public class GenericDAOTest extends AbstractTest {
 			generoDAO.salvar(generoA);
 			
 			// Efeito do Session Per Request!!!
-			generoDAO.getCurrentSession().contains(generoA);
-			
+			Assert.assertTrue( generoDAO.getCurrentSession()
+												.contains(generoA) );
 			
 			List<Genero> generos = generoDAO.buscar();
 			
@@ -76,14 +73,8 @@ public class GenericDAOTest extends AbstractTest {
 			// Remover GeneroA
 
 			generoDAO.deletar(generoA);
-			
-			tx.commit();
-		} catch (RuntimeException e){
-			if( tx.isActive() ){
-				tx.rollback();
-			}
-			throw e;
-		}
+		});
+		
 	}
 
 }

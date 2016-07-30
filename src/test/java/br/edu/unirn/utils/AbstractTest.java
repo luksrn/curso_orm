@@ -8,6 +8,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,11 +24,17 @@ import br.edu.unirn.orm.SessionFactoryHolder;
 public class AbstractTest {
 
 	protected static SessionFactory sessionFactory = SessionFactoryHolder.getSessionFactory();
-	
+
+	protected static Validator validator;
+    
 	@Before
 	public void inicializarSessionFactory(){
 		SessionFactoryHolder.inicializarSessionFactory();
 		sessionFactory = SessionFactoryHolder.getSessionFactory();
+		
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 	}
 	
 	@After
@@ -105,10 +115,34 @@ public class AbstractTest {
 			if ( session != null && session.isOpen()){ session.close();}
 		} 
 	}
+	
+	public void doInTransaction( VoidCallable procedimento ){
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.getTransaction();
+			tx.begin();			 
+			procedimento.execute();
+			tx.commit();
+		} catch (Exception  e){
+			if ( tx != null && (
+					tx.getStatus() == TransactionStatus.ACTIVE || 
+					tx.getStatus() == TransactionStatus.MARKED_ROLLBACK) ){ 
+				tx.rollback(); 
+			}
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			if ( session != null && session.isOpen()){ session.close();}
+		}
+	}
 
     protected void executeSync(VoidCallable callable) {
     	executeSync(Collections.singleton(callable));
 	}
+    
+    
     
 	protected void executeSync(Collection<VoidCallable> callables) {
         try {
